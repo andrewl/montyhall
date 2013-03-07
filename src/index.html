@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript">
+var Clay = Clay || {};
+Clay.gameKey = "montyhall";
+Clay.readyFunctions = [];
+Clay.ready = function( fn ) {
+      Clay.readyFunctions.push( fn );
+};
+( function() {
+      var clay = document.createElement("script");
+          clay.src = ( "https:" == document.location.protocol ? "https://" : "http://" ) + "clay.io/api/api-stats-data-leaderboard-social-twitter-facebook-stream-ratings-suggestions.js"; 
+              var tag = document.getElementsByTagName("script")[0]; tag.parentNode.insertBefore(clay, tag);
+} )();
+
+function MontyHall() {};
+
+  MontyHall.prototype.log = function(message) {
+    console.log(message);
+  }
+
+  MontyHall.prototype.start = function() {
+    this.car = Math.floor(Math.random()*3);
+    this.log('car is ' + this.car);
+    this.cards = $('.card');
+    this.log(this.cards);
+    this.cards.toggleClass('goat');
+    $(this.cards[this.car]).toggleClass('goat');
+    $(this.cards[this.car]).toggleClass('car');
+    this.step1();
+  };
+
+  MontyHall.prototype.select_initial_card = function(card) {
+    card.toggleClass('initial');
+    this.log('select_initial_card');
+    this.log($('.card'));
+  };
+
+  MontyHall.prototype.select_final_card = function(card) {
+    card.toggleClass('final');
+    card.toggleClass('flipped');
+    this.log('select_final_card');
+    this.log($('.card'));
+  };
+
+  MontyHall.prototype.show_goat_card = function() {
+    available_cards = $('.card:not(.initial)').filter(':not(.car)');
+    this.log($(available_cards).length);
+    montys_chosen_card = Math.floor(Math.random()*($(available_cards).length));
+    $(available_cards[montys_chosen_card]).toggleClass('flipped');
+    this.log('show_goat_card');
+    this.log($('.card'));
+  };
+
+  MontyHall.prototype.step1 = function() {
+    this.set_instructions('1. Select a card by clicking on it');
+    this.cards.click(function() {
+      $(this.cards).unbind('click');
+      game.select_initial_card($(this));
+      game.step2();
+    });
+  };
+
+  MontyHall.prototype.step2 = function() {
+    this.set_instructions('2. Monty will now reveal a card with a goat from one of the cards you have not picked');
+    for (i = 0; i < 10000; i++) {
+      k = i + 1;
+    }
+    this.show_goat_card();
+    this.step3();
+  };
+
+  MontyHall.prototype.step3 = function() {
+    this.set_instructions('3. Now, stick or twist');
+    $(this.cards).click(function() {
+      $(this.cards).unbind('click');
+      game.select_final_card($(this));
+      game.step4();
+    });
+  };
+
+  MontyHall.prototype.step4 = function() {
+
+    this.log($('.card'));
+
+    if ($('.card.final').hasClass('car')) {
+      alert('chose the car!!!');
+    }
+
+    if ($('.card.final').hasClass('initial')) {
+      alert('stick');
+    }
+    else {
+      alert('swap');
+    }
+
+  };
+
+  MontyHall.prototype.set_instructions = function(instructions) {
+    $(this.instructions).text(instructions);
+  }
+
+$(document).ready(function() {
+  game = new MontyHall();
+  game.start();
+});
+
+</script>
+<style>
+
+.card {
+
+  height: 300px;
+  width: 300px;
+  margin: 10px;
+  float: left;
+  border: 4px solid black;
+
+  background: white;
+  color: black;
+}
+
+.flipped {
+  background: black;
+  color: white;
+}
+
+.initial {
+  border: 4px solid red;
+}
+
+.final {
+  border: 4px solid green;
+}
+
+.goat {
+  border-top: 4px solid blue;
+}
+
+.car {
+  border-top: 4px solid yellow;
+}
+
+</style>
+</head>
+<body>
+<section id="instruction">sdadads</section>
+<section id="cards">
+
+<div class="card" id="card1">
+<figure class="front">1</figure>
+<figure class="back">1!</figure>
+</div>
+
+<div class="card" id="card2">
+<figure class="front">2</figure>
+<figure class="back">2!</figure>
+</div>
+
+<div class="card" id="card3">
+<figure class="front">3</figure>
+<figure class="back">3!</figure>
+</div>
+
+</section>
+</body>
+</html>
