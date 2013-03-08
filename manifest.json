@@ -1,0 +1,13 @@
+{
+  "name": "The Monty Hall Problem",
+    "description": "The Monty Hall Problem",
+    "version": "0.1",
+    "app": {
+      "launch": {
+        "local_path": "src/index.html"
+      }
+    },
+    "icons": {
+      "128": "icon_128.png"
+    }
+}
