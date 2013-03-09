@@ -2,6 +2,7 @@
 <html>
 <head>
 <title></title>
+<link href='http://fonts.googleapis.com/css?family=Simonetta:400,900' rel='stylesheet' type='text/css'>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script>
 function MontyHall() {};
@@ -50,7 +51,7 @@ function MontyHall() {};
 
   MontyHall.prototype.step1 = function() {
     var self = this;
-    self.set_instructions('1. Select a card by clicking on it');
+    self.set_instructions('1. Make your initial choice by clicking a card to select it');
     $('.card').click(function() {
       $('.card').unbind('click');
       self.select_initial_card($(this));
@@ -60,17 +61,13 @@ function MontyHall() {};
 
   MontyHall.prototype.step2 = function() {
     var self = this;
-    self.set_instructions('2. Monty will now reveal a card with a goat from one of the cards you have not picked');
-    for (i = 0; i < 100000000; i++) {
-      k = i + 1;
-    }
     self.show_goat_card();
     self.step3();
   };
 
   MontyHall.prototype.step3 = function() {
     var self = this;
-    self.set_instructions('2. Monty has revealed one of the other cards which has a goat bahind it. Now, make your final choice...');
+    self.set_instructions('2. Monty has revealed one of the cards you didn\'t choose with goat. Now, make your final choice by clicking one of the two remaining cards.');
     $('.card:not(.flipped)').click(function() {
       $('.card').unbind('click');
       self.select_final_card($(this));
@@ -153,14 +150,36 @@ $(document).ready(function() {
 </script>
 <style>
 
-.card {
+html {
+  font-family: 'Simonetta', cursive;
+  text-align: center;
+  align: center;
+}
 
-  height: 190px;
-  width: 140px;
+#about {
+  font-size: 16px;
+}
+
+#instructions {
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.won {
+  color: red;
+}
+
+.lost {
+  color: #111111;
+}
+
+.card {
+  height: 250px;
+  width: 163px;
   margin: 10px;
   float: left;
 
-  background: url('images/red-48983.svg');
+  background: url('images/card.jpg');
   color: black;
 }
 
@@ -179,25 +198,32 @@ $(document).ready(function() {
 }
 
 .goat.flipped {
-  background: url('images/goat.png');
+  background: url('images/card_goat.jpg');
 }
 
 .car {
 }
 
 .car.flipperd {
-  background: url('images/car.png');
+  background: url('images/card_car.jpg');
 }
 
 
+.wow {
+  font-style: italic;
+}
 
 </style>
 </head>
 <body>
 <section id="about">
 <p>
-The monty hall problem.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus consectetur, orci ut tincidunt mattis, libero diam lacinia arcu, ac consequat tellus dolor in nisi. Nulla facilisi. Etiam tristique nisl quis elit laoreet a malesuada enim venenatis. Suspendisse potenti. Integer ut augue sit amet sapien pharetra mollis ut vel tellus. In hac habitasse platea dictumst. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Ut volutpat quam ligula. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla aliquet vestibulum sagittis. Quisque suscipit lectus sed elit semper ultricies. Proin sagittis justo nec nisi adipiscing tempor. Nam purus est, faucibus in dapibus et, sagittis et tellus. Fusce sed pharetra dui.
+Suppose you're on a game show, and you're given the choice of three cards: Behind one card is a car; behind the others, goats. You pick a card, say No. 1, and the host, who knows what's behind the cards, flips another card, say No. 3, which has a goat. He then says to you, "Do you want to pick card No. 2?" Is it to your advantage to switch your choice?
 </p>
+<p>
+Of course, it makes no difference right? Your choice is between two cards, so you have a 50:50 chance. Wrong! <span class="wow">Contestants who switch have a 2/3 chance of winning the car, while contestants who stick have only a 1/3 chance</span>
+</p>
+
 </section>
 <section id="instructions"></section>
 <section id="cards">
@@ -217,12 +243,19 @@ The monty hall problem.Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
 <figure class="back"></figure>
 </div>
 
+<div class="spacer" style="clear: both;"></div>
 </section>
 
 <section id="scoreboard">
 Scores
 <section id="scores">
 </section>
+</section>
+<section id="more">
+You can find out more about the Monty Hall problem on wikipedia at<a href="http://en.wikipedia.org/wiki/Monty_Hall_problem">http://en.wikipedia.org/wiki/Monty_Hall_problem</a>.
+</section>
+<section id="credits">
+<p>Card image: http://www.flickr.com/photos/andertoons-cartoons/2517004394/</p>
 </section>
 <script type="text/javascript">
 </script>
